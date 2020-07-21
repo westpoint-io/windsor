@@ -1,0 +1,7 @@
+{
+  "function_name": "HelloWorld",
+  "file_extension": "py",
+  "cdk_lib": "lib",
+  "runtime": "PYTHON_3_7",
+  "dependencies_file": "requirements.txt"
+}
