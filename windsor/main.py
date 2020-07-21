@@ -3,14 +3,26 @@ from windsor.resources import resources
 
 
 class Windsor:
-    def generate(self, resource, **kwargs):
-        _resource = resources.get(resource)
-        _module = _resource.get('module')
-        _class = _resource.get('class')
+    """Windsor CLI main class designed to be used with fire. """
 
-        if not _resource:
+    def generate(self, resource, **kwargs):
+        """Generate files and folders for a new CDK resource.
+
+        kwargs will be the arguments needed for each resource.
+
+        Parameters
+        ----------
+            resource -> str
+                Name of the resource to generate.
+        """
+
+        resourcecls_info = resources.get(resource)
+        strmodule = resourcecls_info.get('module')
+        strclass = resourcecls_info.get('class')
+
+        if not resourcecls_info:
             raise AttributeError(f'Resource {resource} not found')
 
-        module = import_module(_module)
+        module = import_module(strmodule)
 
-        getattr(module, _class)(**kwargs)
+        getattr(module, strclass)(**kwargs)

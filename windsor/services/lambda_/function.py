@@ -5,6 +5,17 @@ from windsor.cdkdependencies import CDKDependencies
 
 
 class Function:
+    """AWS Lambda Function.
+
+    Parameters
+    ----------
+        function_name -> str
+            Name of the function that will be created.
+
+        runtime -> str
+            Lambda function runtime.
+    """
+
     def __init__(self, function_name, runtime):
         runtimecls = getattr(runtimemod, runtime)
 

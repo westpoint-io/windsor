@@ -11,7 +11,8 @@ export default class LambdaConstruct extends cdk.Construct {
     this.function = new lambda.Function(this, '{{cookiecutter.function_name}}Function', {
       code: lambda.Code.fromAsset('lib/handlers/{{cookiecutter.function_name}}'),
       handler: 'handler.lambda_handler',
-      runtime: lambda.Runtime.{{cookiecutter.runtime}}
+      runtime: lambda.Runtime.{{cookiecutter.runtime}},
+      functionName: {{cookiecutter.function_name}}
     });
   }
 }
