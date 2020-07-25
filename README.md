@@ -1,10 +1,10 @@
 # Windsor
 > Bootstrap your AWS CDK project resources by running CLI commands.
 
-### Installing
+## Installing
 `pip install windsor`
 
-### How to use
+## How to use
 Initialize windsor by running the following
 
 `windsor init`
@@ -29,3 +29,8 @@ Windsor can manage CDK package versions by keeping they locked to the same versi
 `windsor lock` to verify all CDK packages and check their versions, if any package have a different version than CDK core windsor will reinstall it using a compatible version.
 
 To install packages using always the same version, use command `windsor install [package1] [package2]`.
+
+## Available resources
+`lambda-function`
+
+Built by [Westpoint](https://westpoint.io)
