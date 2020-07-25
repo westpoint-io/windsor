@@ -5,15 +5,13 @@
 `pip install windsor`
 
 ## How to use
-Initialize windsor by running the following
+Initialize `windsor` by running the following command
 
 `windsor init`
 
-`init` will create a windsor configuration file inside the folder.
+`init` will create a windsor configuration file inside the current folder. If a CDK project is not found `windsor` will create one.
 
-**If the folder is not a CDK project windsor will create one.**
-
-After windsor is initialized, you can generate a lambda function by running.
+After `windsor` is initialized, you can generate a lambda function by running.
 
 `windsor generate lambda-function --function-name HelloWorld`
 
