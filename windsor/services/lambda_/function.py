@@ -2,6 +2,8 @@ from cookiecutter.main import cookiecutter
 from windsor.utils import get_cookiecutter_path
 from windsor.services.lambda_ import runtime as runtimemod
 from windsor.cdkdependencies import CDKDependencies
+from windsor.services.lambda_.attributes import DEFAULT_RUNTIME
+from windsor.config import current_config
 
 
 class Function:
@@ -16,7 +18,10 @@ class Function:
             Lambda function runtime.
     """
 
-    def __init__(self, function_name, runtime):
+    def __init__(self, function_name, runtime=None):
+        if not runtime:
+            runtime = getattr(current_config, DEFAULT_RUNTIME)
+
         runtimecls = getattr(runtimemod, runtime)
 
         cookiecutter(

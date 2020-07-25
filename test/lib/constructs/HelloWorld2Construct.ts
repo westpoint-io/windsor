@@ -8,11 +8,11 @@ export default class LambdaConstruct extends cdk.Construct {
   constructor(scope: cdk.Construct, id: string) {
     super(scope, id);
 
-    this.function = new lambda.Function(this, '{{cookiecutter.function_name}}Function', {
-      code: lambda.Code.fromAsset('lib/handlers/{{cookiecutter.function_name}}'),
+    this.function = new lambda.Function(this, 'HelloWorld2Function', {
+      code: lambda.Code.fromAsset('lib/handlers/HelloWorld2'),
       handler: 'handler.lambda_handler',
-      runtime: lambda.Runtime.{{cookiecutter.runtime}},
-      functionName: '{{cookiecutter.function_name}}'
+      runtime: lambda.Runtime.PYTHON_3_7,
+      functionName: 'HelloWorld2'
     });
   }
 }
