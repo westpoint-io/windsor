@@ -80,15 +80,19 @@ class Config:
         self.apply_updates(updates)
 
         with open(os.path.join(directory, 'windsor.json'), 'w') as buf:
-            buf.write(json.dumps(self.__dict__))
+            buf.write(json.dumps(self.__dict__, indent=2))
 
     def load(self, directory):
         """Loads the config from the current environment. """
 
-        with open(os.path.join(directory, 'windsor.json')) as buf:
-            c = json.load(buf)
+        projectconfigpath = os.path.join(directory, 'windsor.json')
+        updates = {}
 
-        self.apply_updates(c)
+        if os.path.isfile(projectconfigpath):
+            with open(projectconfigpath) as buf:
+                updates = json.load(buf)
+
+        self.setup(updates)
 
 
 current_config = Config()
