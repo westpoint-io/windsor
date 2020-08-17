@@ -1,35 +1,43 @@
 import os
+import json
 
 from importlib import import_module
-from windsor.config import current_config
-from windsor.resources import resources
+from windsor.config import current_config, DefaultConfig
 from windsor.cdkdependencies import CDKDependencies
 
 
 class Windsor:
     """Windsor CLI main class designed to be used with fire. """
 
-    def init(self, **kwargs):
+    @staticmethod
+    def init():
         """Start CDK environment using windsor config. """
 
-        current_config.setup(updates=kwargs)
-        CDKDependencies.init_cdk()
-        current_config.save(os.getcwd())
+        config = DefaultConfig()
 
-    def lock(self):
+        CDKDependencies.init_cdk(cfg=config)
+
+        config.setup()
+
+    @staticmethod
+    def lock():
         """Lock the current CDK version by reinstalling packages with different
         versions. """
 
-        current_config.load(os.getcwd())
+        current_config.read()
 
         CDKDependencies.lock_version()
 
-    def install(self, *args):
+    @staticmethod
+    def install(*args):
         """Install CDK dependencies. """
+
+        current_config.read()
 
         CDKDependencies.install(*args)
 
-    def generate(self, resource, **kwargs):
+    @staticmethod
+    def generate(resource, **kwargs):
         """Generate files and folders for a new CDK resource.
 
         kwargs will be the arguments needed for each resource.
@@ -40,7 +48,12 @@ class Windsor:
                 Name of the resource to generate.
         """
 
-        current_config.load(os.getcwd())
+        current_config.read()
+
+        resources_path = os.path.join(os.path.dirname(current_config.CONFIG_PATH), 'resources.json')
+
+        with open(resources_path) as resbuf:
+            resources = json.load(resbuf)
 
         resourcecls_info = resources.get(resource)
         strmodule = resourcecls_info.get('module')

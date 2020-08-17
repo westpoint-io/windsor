@@ -1,1 +1,2 @@
 recursive-include windsor/cookiecutter *
+recursive-include windsor/data *

@@ -1,7 +1,6 @@
 import os
-import json
 
-from windsor.attributes import attr_loader
+from marshmallow import Schema, fields
 
 
 class CDKLanguage:
@@ -10,89 +9,114 @@ class CDKLanguage:
     TYPESCRIPT = 'typescript'
 
 
-class Config:
-    """Windsor config class. """
+class ConfigResourcePropertySchema(Schema):
+    Name = fields.Str(required=True)
+    Value = fields.Str(required=True)
+
+
+class ConfigResourceSchema(Schema):
+    Resource = fields.Str(required=True)
+    Properties = fields.List(fields.Nested(ConfigResourcePropertySchema()), required=True)
+
+
+class ConfigSchema(Schema):
+    CDKLanguage = fields.Str(required=True)
+    CDKVersion = fields.Str(required=True)
+    Resources = fields.List(fields.Nested(ConfigResourceSchema()), required=True)
+
+
+class ConfigResource(object):
+    """Config resource as object.
+
+    :param res: Resource to load.
+    :type res: dict
+    """
+
+    def __init__(self, res):
+        self.name = res.get('Resource')
+        self.properties = {}
+
+        for prop in res.get('Properties'):
+            k, v = prop.get('Name'), prop.get('Value')
+            self.properties[k] = v
+
+
+class ConfigBase(object):
+    """Windsor base configuration class. """
+
+    def __init__(self, config_path):
+        self.config_path = config_path
+        self.schema = ConfigSchema()
+        self.cfg = None
+
+    def __getattr__(self, attr):
+        if not self.cfg:
+            return None
+
+        return self.cfg.get(attr)
+
+    def read(self):
+        """Reads the file located at self.config_path, validate it and return its contents as a dict-like object."""
+
+        if self.cfg:
+            return self.cfg
+
+        with open(self.config_path) as buf:
+            s = buf.read()
+
+        self.cfg = self.schema.loads(s)
+
+        return self.cfg
+
+    def write(self, obj):
+        """Writes the config to the current project directory.
+
+        :param obj: Config as dict-like object to dump into a file.
+        :type obj: dict
+        """
+
+        with open(os.path.join(os.getcwd(), 'windsor.json'), 'w') as buf:
+            buf.write(self.schema.dumps(obj, indent=4))
+
+    def setup(self):
+        """Reads the defaultconfig.json file and dumps its content into the project directory. """
+
+        default_config = self.read()
+
+        self.write(default_config)
+
+    def resource(self, n):
+        """Get a resource from property Resources of config.
+
+        :param n: Name of the resource the get.
+        :type n: str
+        """
+
+        cfg = self.read()
+
+        for res in cfg.get('Resources', []):
+            res_name = res.get('Resource')
+
+            if res_name == n:
+                return ConfigResource(res)
+
+
+class DefaultConfig(ConfigBase):
+    """Windsor configuration class. """
+
+    WINDSOR_DIR = os.path.abspath(os.path.dirname(__file__))
+    DEFAULT_CONFIG_PATH = os.path.join(WINDSOR_DIR, 'data', 'configdefault.json')
 
     def __init__(self):
-        self.language = CDKLanguage.TYPESCRIPT
-
-    def is_valid_key(self, key):
-        """Validates the key verifying if it is present it is an attribute
-        of this class or an attribute from resource.
-
-        Parameters
-        ----------
-            key -> str
-                Key to be validated.
-
-        Returns
-        -------
-            Bool indicating if the key is valid or not.
-        """
-
-        return hasattr(self, key) or attr_loader.contains(key)
-
-    def apply_updates(self, updates):
-        """Apply updates to the default configuration.
-
-        Parameters
-        ----------
-            updates -> dict
-                Dict like object to update in the current windsor.config.Config
-                instance.
-        """
-
-        for k, v in updates.items():
-            if not self.is_valid_key(k):
-                raise AttributeError(f'Attribute {k} not found')
-
-            setattr(self, k, v)
-
-    def setup(self, updates={}):
-        """Setup the config class using the attributes defined in
-        windsor.attributes.attributes.
-
-        Parameters
-        ----------
-            updates -> dict
-                Attributes to update in the current windsor.config.Config
-                instance.
-        """
-
-        attr_loader.attributes.update(updates)
-
-        self.apply_updates(attr_loader.attributes)
-
-    def save(self, directory, updates={}):
-        """Save the current config in the directory as well as update
-        config attributes.
-
-        Parameters
-        ----------
-            directory -> str
-                Directory to store the config file.
-
-            updates -> dict
-                Attributes to update in the current config.config.Config
-                instance.
-        """
-
-        self.apply_updates(updates)
-
-        with open(os.path.join(directory, 'windsor.json'), 'w') as buf:
-            buf.write(json.dumps(self.__dict__, indent=2))
-
-    def load(self, directory):
-        """Loads the config from the current environment. """
-
-        projectconfigpath = os.path.join(directory, 'windsor.json')
-        updates = {}
-
-        if os.path.isfile(projectconfigpath):
-            with open(projectconfigpath) as buf:
-                updates = json.load(buf)
-
-        self.setup(updates)
+        super().__init__(self.DEFAULT_CONFIG_PATH)
+        self.read()
 
 
-current_config = Config()
+class ProjectConfig(ConfigBase):
+    CONFIG_PATH = os.path.join(os.getcwd(), 'windsor.json')
+
+    def __init__(self):
+        super().__init__(self.CONFIG_PATH)
+
+
+current_config = ProjectConfig()
