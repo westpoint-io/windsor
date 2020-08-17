@@ -5,7 +5,7 @@
 `pip install windsor`
 
 ## How to use
-Initialize `windsor` by running the following command
+Start `windsor` by running the following command in an empty folder on your terminal.
 
 `windsor init`
 
