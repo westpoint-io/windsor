@@ -1,34 +1,58 @@
 # Windsor
 > Bootstrap your AWS CDK project resources by running CLI commands.
 
-## Installing
+## Getting started
+
+### Prerequisites
+To use windsor and all of its features make sure you have the following dependencies installed.
+
+- Python >= 3.6
+- npm
+- [AWS CLI](https://aws.amazon.com/cli/)
+- [AWS CDK](https://aws.amazon.com/cdk/)
+
+### Installation
+Install windsor using PyPI
+
 `pip install windsor`
 
-## How to use
-Start `windsor` by running the following command in an empty folder on your terminal.
+### Create a CDK application using windsor
+Each CDK app have its own dependencies and must be in its own folder. Start by creating an empty folder in your terminal.
 
-`windsor init`
+```
+$ mkdir my-app
+$ cd my-app
+```
 
-`init` will create a windsor configuration file inside the current folder. If a CDK project is not found `windsor` will create one.
+After that start your CDK application and windsor configuration simply running `windsor init`.
 
-After `windsor` is initialized, you can generate a lambda function by running.
+The command `windsor init` doesn't need to be ran in an empty folder. If you want to use windsor in a project in development `init` will identify your project and just setup its own configuration.
+
+### Control your dependencies
+Windsor can help you manage your CDK dependencies by locking the CDK version and providing commands to install and update these dependencies. The following example shows how to install the package `@aws-cdk/aws-lambda`.
+
+`windsor install aws-lambda`
+
+Notice that you also don't need to specify the namespace `@aws-cdk`, windsor will prefix that in all packages listed to install.
+
+If you have packages with different versions, windsor provides a command to update all of them to the version specified in the `CDKVersion` attribute of `windsor.json` file. To update all your packages run.
+
+`windsor lock`
+
+### Generate resources
+To speed up the development of our instrastructure at [Westpoint](https://westpoint.io), we made some ready to use templates that we can generate using windsor.
 
 `windsor generate lambda-function --function-name HelloWorld`
 
-Inside the `windsor.json` there is parameter called `lambda-function-default-runtime`. This parameters sets the default lambda runtime to `PYTHON_3_7`, if you want to change this value use the parameter `--runtime` when running `windsor generate lambda-function`. The allowed values are:
+The example above shows how to generate a lambda function. The only required parameter to generate lambda functions is `function-name`, since windsor will store a default runtime for them in its configuration. To change the default runtime change the attribute `DefaultRuntime` in windsor configuration file.
 
-`PYTHON_3_7`
-
-`NODEJS_10_X`
-
-After the command finishes your project will have a new file located under the folder `constructs`. This file contains a construct class that can be used to build the lambda function.
-
-Windsor can manage CDK package versions by keeping they locked to the same version as `@aws-cdk/core`. Run the command
-`windsor lock` to verify all CDK packages and check their versions, if any package have a different version than CDK core windsor will reinstall it using a compatible version.
-
-To install packages using always the same version, use command `windsor install [package1] [package2]`.
-
-## Available resources
+#### Resources available
 `lambda-function`
 
-Built by [Westpoint](https://westpoint.io)
+Parameters:
+ - function-name
+ - runtime
+
+`codepipeline-react`
+Parameters:
+ - pipeline-name
