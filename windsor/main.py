@@ -50,7 +50,7 @@ class Windsor:
 
         current_config.read()
 
-        resources_path = os.path.join(os.path.dirname(current_config.CONFIG_PATH), 'resources.json')
+        resources_path = os.path.join(DefaultConfig.WINDSOR_DIR, 'data', 'resources.json')
 
         with open(resources_path) as resbuf:
             resources = json.load(resbuf)

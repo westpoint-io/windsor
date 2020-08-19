@@ -5,16 +5,12 @@ import * as lambda from '@aws-cdk/aws-lambda';
 class {{cookiecutter.function_name.replace('-', '')}}Function extends lambda.Function {
     constructor(scope: cdk.Construct, id: string) {
         super(scope, id, {
-          code: lambda.code.fromAsset('lib/handlers/{{cookiecutter.code}}'),
+          code: lambda.Code.fromAsset('lib/handlers/{{cookiecutter.function_name}}'),
           handler: '{{cookiecutter.handler}}',
           functionName: '{{cookiecutter.function_name}}',
           runtime: lambda.Runtime.{{cookiecutter.runtime}},
-          {...this.getExtraConfig()}
+          // Put your extra configuration below
         });
-    }
-
-    getExtraConfig() {
-        return {};
     }
 }
 

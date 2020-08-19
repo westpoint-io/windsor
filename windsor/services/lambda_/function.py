@@ -17,7 +17,7 @@ class Function:
             Lambda function runtime.
     """
 
-    def __init__(self, function_name, runtime=None, handler=None, code=None):
+    def __init__(self, function_name, runtime=None, code=None, handler=None):
         config_properties = current_config.resource('lambda').properties
 
         if not runtime:
@@ -27,17 +27,12 @@ class Function:
 
         cookiecutter_context = {
             'function_name': function_name,
-            'code': code,
             'runtime': runtimecls.code,
             'file_extension': runtimecls.file_extension,
-            'dependencies_file': runtimecls.dependencies_file
+            'dependencies_file': runtimecls.dependencies_file,
+            'code': function_name if not code else code,
+            'handler': 'lambda_handler' if not handler else handler
         }
-
-        if code:
-            cookiecutter_context['code'] = code
-
-        if handler:
-            cookiecutter_context['handler'] = handler
 
         cookiecutter(
             get_cookiecutter_path('lambda'),
@@ -52,6 +47,6 @@ class Function:
         print(f'''
 To use it just paste the following lines to your CDK stack.
 
-import {function_name.upper().replace('-', '')}Function from './constructs/{function_name.lower()}';
+import {function_name.capitalize().replace('-', '')}Function from './constructs/{function_name.lower()}';
 ...
-new {function_name.upper().replace('-', '')}Function(this, '{function_name.upper().replace('-', '')}Function');''')
+new {function_name.capitalize().replace('-', '')}Function(this, '{function_name.upper().replace('-', '')}Function');''')

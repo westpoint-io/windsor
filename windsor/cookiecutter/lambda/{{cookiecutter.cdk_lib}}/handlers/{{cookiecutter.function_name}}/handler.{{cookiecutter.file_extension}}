@@ -1,2 +1,10 @@
+{%- if cookiecutter.file_extension == "py" -%}
+
 def lambda_handler(event, context):
     return "hello"
+
+{%- elif cookiecutter.file_extension == "js" -%}
+
+module.exports.lambda_handler = () => "hello"
+
+{% endif %}

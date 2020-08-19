@@ -16,6 +16,8 @@ class CDKDependencies:
 
         `--language typescript` language in which cdk will be built.
 
+        After running CDK init it will read the package.json created and get the CDK version to lock in Windsor config.
+
         :param cfg: Config object to use.
         :type cfg: windsor.config.ConfigBase
         """
@@ -24,6 +26,18 @@ class CDKDependencies:
         cdk_init_cmd = ['cdk', 'init', 'app', '--language', cdk_language]
 
         subprocess.call(cdk_init_cmd, shell=True)
+
+        deps_file = CDKDependencies.get_deps_file()
+        deps = deps_file.get('dependencies', {})
+
+        for k, v in deps.items():
+            if k.startswith('@aws-cdk') and k.endswith('/core'):
+                cdkversion = v.replace('^', '')
+                break
+
+        cfg.update({
+            'CDKVersion': cdkversion
+        })
 
     @staticmethod
     def get_deps_file():

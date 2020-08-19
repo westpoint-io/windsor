@@ -1,6 +1,6 @@
 {
   "CDKLanguage": "typescript",
-  "CDKVersion": "1.57.0",
+  "CDKVersion": "{{version}}",
   "Resources": [
     {
       "Resource": "lambda",

@@ -66,7 +66,7 @@ class ConfigBase(object):
 
         self.cfg = self.schema.loads(s)
 
-        return self.cfg
+        return self
 
     def write(self, obj):
         """Writes the config to the current project directory.
@@ -77,6 +77,11 @@ class ConfigBase(object):
 
         with open(os.path.join(os.getcwd(), 'windsor.json'), 'w') as buf:
             buf.write(self.schema.dumps(obj, indent=4))
+
+    def update(self, obj):
+        """Updates the current configuration with a new object. """
+
+        self.cfg.update(obj)
 
     def setup(self):
         """Reads the defaultconfig.json file and dumps its content into the project directory. """

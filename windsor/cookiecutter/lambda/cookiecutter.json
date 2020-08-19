@@ -1,7 +1,7 @@
 {
   "cdk_lib": "lib",
   "function_name": "HelloWorld",
-  "file_extension": "py",
+  "file_extension": ["py", "js"],
   "handler": "handler.lambda_handler",
   "code": "{{ cookiecutter.code.lower() }}",
   "runtime": "PYTHON_3_7",
