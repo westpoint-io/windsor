@@ -13,3 +13,5 @@ build/
 
 # VSCode
 .vscode/
+
+.idea/

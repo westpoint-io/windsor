@@ -1,0 +1,15 @@
+{
+  "CDKLanguage": "typescript",
+  "CDKVersion": "{{version}}",
+  "Resources": [
+    {
+      "Resource": "lambda",
+      "Properties": [
+        {
+          "Name": "DefaultRuntime",
+          "Value": "PYTHON_3_7"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{%- if cookiecutter.file_extension == "py" -%}
+
+pytest
+
+{%- elif cookiecutter.file_extension == "js" -%}
+
+{
+  "name": "{{cookiecutter.function_name.lower()}}",
+  "version": "1.0.0",
+  "main": "handler.js",
+  "scripts": {
+    "start": "node handler.js",
+    "test": "jest"
+  }
+}
+
+{% endif %}

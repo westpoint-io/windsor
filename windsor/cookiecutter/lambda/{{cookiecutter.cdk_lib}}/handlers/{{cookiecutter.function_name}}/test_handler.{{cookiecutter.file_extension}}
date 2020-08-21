@@ -1,0 +1,18 @@
+{%- if cookiecutter.file_extension == "py" -%}
+
+from handler import lambda_handler
+
+def test_{{cookiecutter.function_name.lower()}}():
+    resp = lambda_handler({}, None)
+
+    assert resp == 'hello'
+
+{%- elif cookiecutter.file_extension == "js" -%}
+
+const { lambda_handler } = require('./handler.js');
+
+test('assert hello', () => {
+    expect(lambda_handler()).toBe('hello');
+});
+
+{% endif %}

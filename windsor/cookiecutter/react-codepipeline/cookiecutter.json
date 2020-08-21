@@ -1,0 +1,4 @@
+{
+  "pipeline_name": "ReactAppPipeline",
+  "cdk_lib": "lib"
+}

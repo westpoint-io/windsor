@@ -9,7 +9,7 @@ with open('README.md') as readmebuf:
 
 setup(
     name='windsor',
-    version='0.3',
+    version='1.0.0',
     packages=find_packages(),
     description='Bootstrap your AWS CDK project resources by running CLI commands',
     long_description=readme,
