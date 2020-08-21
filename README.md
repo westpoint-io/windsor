@@ -46,13 +46,52 @@ To speed up the development of our instrastructure at [Westpoint](https://westpo
 
 The example above shows how to generate a lambda function. The only required parameter to generate lambda functions is `function-name`, since windsor will store a default runtime for them in its configuration. To change the default runtime change the attribute `DefaultRuntime` in windsor configuration file.
 
-#### Resources available
+## Resources available
+
 `lambda-function`
 
-Parameters:
+**Parameters**:
  - function-name
  - runtime
 
+**Example**
+
+
+```typescript
+import * as cdk from '@aws-cdk/core';
+import HelloWorldFunction from './constructs/helloworld';
+
+export class WindsortestStack extends cdk.Stack {
+  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+
+    new HelloWorldFunction(this, 'HelloWorldFunction');
+  }
+}
+```
+
+---
+
 `codepipeline-react`
-Parameters:
+
+**Parameters**:
  - pipeline-name
+
+**Example**:
+
+```typescript
+import * as cdk from '@aws-cdk/core';
+import ReactPipeline from './constructs/react-pipeline';
+
+export class WindsortestStack extends cdk.Stack {
+  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+
+    new ReactPipeline(this, 'ReactPipeline', {
+      owner: 'REPOOWNER',
+      repo: 'REPONAME',
+      oauthToken: 'YOURTOKEN'
+    });
+  }
+}
+```

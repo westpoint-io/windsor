@@ -17,10 +17,6 @@ class ReactPipeline:
         CDKDependencies.install(
             'aws-s3',
             'aws-codebuild',
-            'aws-cloudfront',
             'aws-codepipeline',
-            'aws-codepipeline-actions',
-            'aws-route53',
-            'aws-route53-targets',
-            'aws-iam'
+            'aws-codepipeline-actions'
         )
