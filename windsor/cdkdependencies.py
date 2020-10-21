@@ -113,6 +113,6 @@ class CDKDependencies:
         if len(nsdeps) == 0:
             return
 
-        install_cmd = ['npm', 'i', *nsdeps]
+        install_cmd = f'npm i {" ".join(nsdeps)}'
 
         subprocess.call(install_cmd, shell=True)

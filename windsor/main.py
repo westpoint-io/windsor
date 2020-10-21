@@ -56,6 +56,11 @@ class Windsor:
             resources = json.load(resbuf)
 
         resourcecls_info = resources.get(resource)
+
+        if not resourcecls_info:
+            print(f'Resource `{resource}` not found')
+            return
+
         strmodule = resourcecls_info.get('module')
         strclass = resourcecls_info.get('class')
 
