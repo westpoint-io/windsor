@@ -61,10 +61,15 @@ class CDKDependencies:
         depsfile = CDKDependencies.get_deps_file()
         deps = depsfile.get('dependencies')
 
+        to_install = []
+
         for k, v in deps.items():
             if k.startswith('@aws-cdk'):
                 if v != cdkver:
-                    CDKDependencies.install(k.replace('@aws-cdk/', ''))
+                    depname = k.replace('@aws-cdk/', '')
+                    to_install.append(depname)
+
+        CDKDependencies.install(*to_install)
 
     @staticmethod
     def dep_is_installed(dep):

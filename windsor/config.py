@@ -124,4 +124,7 @@ class ProjectConfig(ConfigBase):
         super().__init__(self.CONFIG_PATH)
 
 
-current_config = ProjectConfig()
+if os.path.isfile(ProjectConfig.CONFIG_PATH):
+    current_config = ProjectConfig()
+else:
+    current_config = DefaultConfig()
