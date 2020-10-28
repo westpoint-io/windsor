@@ -1,0 +1,4 @@
+{
+    "cdk_lib": "lib",
+    "restapi_name": "HelloWorld"
+}

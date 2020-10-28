@@ -1,10 +1,10 @@
 # Windsor
-> Bootstrap your AWS CDK project resources by running CLI commands.
+> Toolkit to speed up AWS CDK applications development.
 
-## Getting started
+`windsor` is a CLI tool built by [Westpoint](https://westpoint.io) to increase the development speed of applications built using AWS CDK by injecting pre-made code into the project as well as managing dependencie versions and project configurations.
 
-### Prerequisites
-To use windsor and all of its features make sure you have the following dependencies installed.
+### System requirements
+To use `windsor` and all of its features make sure you have the following dependencies installed.
 
 - Python >= 3.6
 - npm
@@ -12,9 +12,13 @@ To use windsor and all of its features make sure you have the following dependen
 - [AWS CDK](https://aws.amazon.com/cdk/)
 
 ### Installation
-Install windsor using PyPI
+Install `windsor` using PyPI
 
 `pip install windsor`
+
+## Getting started
+
+![](assets/getting-started.gif)
 
 ### Create a CDK application using windsor
 Each CDK app have its own dependencies and must be in its own folder. Start by creating an empty folder in your terminal.
@@ -24,12 +28,12 @@ $ mkdir my-app
 $ cd my-app
 ```
 
-After that start your CDK application and windsor configuration simply running `windsor init`.
+Start a CDK application running `windsor init`.
 
-The command `windsor init` doesn't need to be ran in an empty folder. If you want to use windsor in a project in development `init` will identify your project and just setup its own configuration.
+The `init` command doesn't need to be ran in an empty folder. If you want to use `windsor` in a project already started, the command `init` will identify your project and create the a configuration file for it.
 
 ### Control your dependencies
-Windsor can help you manage your CDK dependencies by locking the CDK version and providing commands to install and update these dependencies. The following example shows how to install the package `@aws-cdk/aws-lambda`.
+Windsor can help you manage your CDK dependencies by locking the version of `@aws-cdk/core` and providing commands to install and update these dependencies. The following example shows how to install the package `@aws-cdk/aws-lambda`.
 
 `windsor install aws-lambda`
 
@@ -39,8 +43,9 @@ If you have packages with different versions, windsor provides a command to upda
 
 `windsor lock`
 
-### Generate resources
-To speed up the development of our instrastructure at [Westpoint](https://westpoint.io), we made some ready to use templates that we can generate using windsor.
+### Generating resources
+`windsor` is able to generate resources with the command `generate`. Each resource generate will be in the form a CDK Construct, meaning that you can extend them and customize as you wish.
+**Obs: `windsor` doesn't inject code in files that already exists in your project, that means that for every generated resource, you will need to instanciate the construct into your stack.**
 
 `windsor generate lambda-function --function-name HelloWorld`
 
@@ -55,6 +60,8 @@ The example above shows how to generate a lambda function. The only required par
  - runtime
 
 **Example**
+
+![](assets/generate-lambda.gif)
 
 
 ```typescript
@@ -74,10 +81,14 @@ export class WindsortestStack extends cdk.Stack {
 
 `codepipeline-react`
 
+A Pipeline that builds a React Application and sends to a S3 Bucket. The source stage pull code from Github and is triggered every time the branch (specified with the parameter `branch`) is updated.
+
 **Parameters**:
  - pipeline-name
 
 **Example**:
+
+![](assets/generate-react-pipeline.gif)
 
 ```typescript
 import * as cdk from '@aws-cdk/core';

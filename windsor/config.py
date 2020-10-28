@@ -56,7 +56,8 @@ class ConfigBase(object):
         return self.cfg.get(attr)
 
     def read(self):
-        """Reads the file located at self.config_path, validate it and return its contents as a dict-like object."""
+        """Reads the file located at self.config_path, validates it and return
+        its contents as a dict-like object."""
 
         if self.cfg:
             return self.cfg
@@ -84,7 +85,8 @@ class ConfigBase(object):
         self.cfg.update(obj)
 
     def setup(self):
-        """Reads the defaultconfig.json file and dumps its content into the project directory. """
+        """Reads `defaultconfig.json` file and dumps its content into the
+        project directory. """
 
         default_config = self.read()
 
@@ -110,7 +112,8 @@ class DefaultConfig(ConfigBase):
     """Windsor configuration class. """
 
     WINDSOR_DIR = os.path.abspath(os.path.dirname(__file__))
-    DEFAULT_CONFIG_PATH = os.path.join(WINDSOR_DIR, 'data', 'configdefault.json')
+    DEFAULT_CONFIG_PATH = os.path.join(WINDSOR_DIR, 'data',
+                                       'configdefault.json')
 
     def __init__(self):
         super().__init__(self.DEFAULT_CONFIG_PATH)
@@ -124,4 +127,7 @@ class ProjectConfig(ConfigBase):
         super().__init__(self.CONFIG_PATH)
 
 
-current_config = ProjectConfig()
+if os.path.isfile(ProjectConfig.CONFIG_PATH):
+    current_config = ProjectConfig()
+else:
+    current_config = DefaultConfig()

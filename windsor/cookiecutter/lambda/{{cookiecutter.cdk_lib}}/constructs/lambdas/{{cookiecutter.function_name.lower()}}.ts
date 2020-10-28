@@ -2,7 +2,7 @@ import * as cdk from '@aws-cdk/core';
 import * as lambda from '@aws-cdk/aws-lambda';
 
 
-class {{cookiecutter.function_name.replace('-', '')}}Function extends lambda.Function {
+class {{cookiecutter.construct_name}}Function extends lambda.Function {
     constructor(scope: cdk.Construct, id: string) {
         super(scope, id, {
           code: lambda.Code.fromAsset('lib/handlers/{{cookiecutter.function_name}}'),

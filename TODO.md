@@ -1,3 +1,0 @@
-- Register jinja2 template engine on cookiecutter.
-- Build code for lambdas functions for each runtime.
-- Build code for the tests of lambdas functions for each runtime.
