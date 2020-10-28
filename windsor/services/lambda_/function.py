@@ -1,3 +1,5 @@
+import logging
+
 from cookiecutter.main import cookiecutter
 from windsor.utils import get_cookiecutter_path
 from windsor.services.lambda_ import runtime as runtimemod
@@ -43,10 +45,10 @@ class Function:
 
         CDKDependencies.install('aws-lambda')
 
-        print('[*] Added Lambda Function:', function_name)
-        print(f'''
+        logging.info(f'Added Lambda Function {function_name}')
+        logging.info(f'''
 To use it just paste the following lines to your CDK stack.
 
-import {function_name.capitalize().replace('-', '')}Function from './constructs/{function_name.lower()}';
+import {function_name.capitalize().replace('-', '')}Function from './constructs/lambdas/{function_name.lower()}';
 ...
 new {function_name.capitalize().replace('-', '')}Function(this, '{function_name.upper().replace('-', '')}Function');''')

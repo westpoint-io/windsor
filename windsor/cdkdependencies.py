@@ -1,8 +1,9 @@
 import os
-import subprocess
+import logging
 import json
 
 from windsor.config import current_config
+from windsor.utils import run_command
 
 
 class CDKDependencies:
@@ -22,22 +23,32 @@ class CDKDependencies:
         :type cfg: windsor.config.ConfigBase
         """
 
+        cdk_config_file = os.path.join(os.getcwd(), 'cdk.json')
+
         cdk_language = cfg.CDKLanguage
         cdk_init_cmd = ['cdk', 'init', 'app', '--language', cdk_language]
 
-        subprocess.call(cdk_init_cmd, shell=True)
+        if os.path.isfile(cdk_config_file):
+            logging.info('CDK application already created.')
+        else:
+            logging.info('Creating a new CDK application.')
+            run_command(cdk_init_cmd)
 
         deps_file = CDKDependencies.get_deps_file()
         deps = deps_file.get('dependencies', {})
 
+        cdkversion = None
         for k, v in deps.items():
             if k.startswith('@aws-cdk') and k.endswith('/core'):
                 cdkversion = v.replace('^', '')
                 break
 
-        cfg.update({
-            'CDKVersion': cdkversion
-        })
+        if cdkversion is not None:
+            logging.info(f'Using CDK version {cdkversion}')
+        else:
+            cfg.update({
+                'CDKVersion': cdkversion
+            })
 
     @staticmethod
     def get_deps_file():
@@ -113,6 +124,11 @@ class CDKDependencies:
         if len(nsdeps) == 0:
             return
 
-        install_cmd = f'npm i {" ".join(nsdeps)}'
+        strdeps = ' '.join(nsdeps)
 
-        subprocess.call(install_cmd, shell=True)
+        logging.info('The following packages will be installed')
+        logging.info(f'{strdeps}')
+
+        install_cmd = ['npm', 'i', *nsdeps]
+
+        run_command(install_cmd)

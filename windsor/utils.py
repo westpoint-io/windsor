@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 
 def get_cookiecutter_path(*dirs):
@@ -12,3 +13,17 @@ def get_cookiecutter_path(*dirs):
     cookiecutterdir = os.path.join(rootdir, 'cookiecutter')
 
     return os.path.join(cookiecutterdir, *dirs)
+
+
+def run_command(cmd, output=False):
+    """Run a terminal command. """
+
+    kwargs = {}
+
+    if not output:
+        kwargs.update({
+            'stdout': open(os.devnull, 'w'),
+            'stderr': subprocess.STDOUT
+        })
+
+    subprocess.call(cmd, **kwargs)

@@ -1,16 +1,17 @@
 {
   "name": "docs",
   "version": "1.0.0",
-  "description": "",
+  "description": "This folder contains files that renders terminal commands into gifs used in `windsor` documentation.",
   "main": "index.js",
-  "dependencies": {},
-  "devDependencies": {
-    "terminalizer": "^0.7.2"
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "render": "terminalizer render",
+    "record": "terminalizer record",
+    "play": "terminalizer play"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "terminalizer": "^0.7.2"
+  }
 }

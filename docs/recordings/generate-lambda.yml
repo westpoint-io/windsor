@@ -1,0 +1,271 @@
+# The configurations that used for the recording, feel free to edit them
+config:
+
+  # Specify a command to be executed
+  # like `/bin/bash -l`, `ls`, or any other commands
+  # the default is bash for Linux
+  # or powershell.exe for Windows
+  command: bash -l
+  
+  # Specify the current working directory path
+  # the default is the current working directory path
+  cwd: /tmp
+  
+  # Export additional ENV variables
+  env:
+    recording: true
+  
+  # Explicitly set the number of columns
+  # or use `auto` to take the current
+  # number of columns of your shell
+  cols: 209
+  
+  # Explicitly set the number of rows
+  # or use `auto` to take the current
+  # number of rows of your shell
+  rows: 52
+  
+  # Amount of times to repeat GIF
+  # If value is -1, play once
+  # If value is 0, loop indefinitely
+  # If value is a positive number, loop n times
+  repeat: 0
+  
+  # Quality
+  # 1 - 100
+  quality: 100
+  
+  # Delay between frames in ms
+  # If the value is `auto` use the actual recording delays
+  frameDelay: auto
+  
+  # Maximum delay between frames in ms
+  # Ignored if the `frameDelay` isn't set to `auto`
+  # Set to `auto` to prevent limiting the max idle time
+  maxIdleTime: 2000
+  
+  # The surrounding frame box
+  # The `type` can be null, window, floating, or solid`
+  # To hide the title use the value null
+  # Don't forget to add a backgroundColor style with a null as type
+  frameBox:
+    type: floating
+    title: windsor
+    style:
+      border: 0px black solid
+      # boxShadow: none
+      # margin: 0px
+  
+  # Add a watermark image to the rendered gif
+  # You need to specify an absolute path for
+  # the image on your machine or a URL, and you can also
+  # add your own CSS styles
+  watermark:
+    imagePath: null
+    style:
+      position: absolute
+      right: 15px
+      bottom: 15px
+      width: 100px
+      opacity: 0.9
+  
+  # Cursor style can be one of
+  # `block`, `underline`, or `bar`
+  cursorStyle: block
+  
+  # Font family
+  # You can use any font that is installed on your machine
+  # in CSS-like syntax
+  fontFamily: "Monaco, Lucida Console, Ubuntu Mono, Monospace"
+  
+  # The size of the font
+  fontSize: 12
+  
+  # The height of lines
+  lineHeight: 1
+  
+  # The spacing between letters
+  letterSpacing: 0
+  
+  # Theme
+  theme:
+    background: "transparent"
+    foreground: "#afafaf"
+    cursor: "#c7c7c7"
+    black: "#232628"
+    red: "#fc4384"
+    green: "#b3e33b"
+    yellow: "#ffa727"
+    blue: "#75dff2"
+    magenta: "#ae89fe"
+    cyan: "#708387"
+    white: "#d5d5d0"
+    brightBlack: "#626566"
+    brightRed: "#ff7fac"
+    brightGreen: "#c8ed71"
+    brightYellow: "#ebdf86"
+    brightBlue: "#75dff2"
+    brightMagenta: "#ae89fe"
+    brightCyan: "#b1c6ca"
+    brightWhite: "#f9f9f4"
+  
+# Records, feel free to edit them
+records:
+  - delay: 5
+    content: "\e]0;windsor@demo:/test\a\e[01;32mwindsor@demo\e[00m:\e[01;34m/test\e[00m$ "
+  - delay: 315
+    content: w
+  - delay: 94
+    content: i
+  - delay: 63
+    content: 'n'
+  - delay: 73
+    content: d
+  - delay: 128
+    content: s
+  - delay: 96
+    content: o
+  - delay: 84
+    content: r
+  - delay: 89
+    content: ' '
+  - delay: 185
+    content: g
+  - delay: 133
+    content: e
+  - delay: 85
+    content: 'n'
+  - delay: 94
+    content: e
+  - delay: 94
+    content: r
+  - delay: 163
+    content: a
+  - delay: 192
+    content: t
+  - delay: 93
+    content: e
+  - delay: 144
+    content: ' '
+  - delay: 379
+    content: l
+  - delay: 114
+    content: a
+  - delay: 94
+    content: m
+  - delay: 158
+    content: b
+  - delay: 53
+    content: d
+  - delay: 61
+    content: a
+  - delay: 406
+    content: '-'
+  - delay: 204
+    content: f
+  - delay: 85
+    content: u
+  - delay: 87
+    content: 'n'
+  - delay: 64
+    content: c
+  - delay: 169
+    content: t
+  - delay: 56
+    content: i
+  - delay: 69
+    content: o
+  - delay: 53
+    content: 'n'
+  - delay: 118
+    content: ' '
+  - delay: 1044
+    content: '-'
+  - delay: 137
+    content: '-'
+  - delay: 1159
+    content: f
+  - delay: 76
+    content: u
+  - delay: 80
+    content: 'n'
+  - delay: 44
+    content: c
+  - delay: 189
+    content: t
+  - delay: 71
+    content: i
+  - delay: 63
+    content: o
+  - delay: 59
+    content: 'n'
+  - delay: 175
+    content: '-'
+  - delay: 171
+    content: 'n'
+  - delay: 85
+    content: a
+  - delay: 80
+    content: m
+  - delay: 75
+    content: e
+  - delay: 95
+    content: ' '
+  - delay: 1595
+    content: T
+  - delay: 189
+    content: e
+  - delay: 171
+    content: s
+  - delay: 102
+    content: t
+  - delay: 1298
+    content: ' '
+  - delay: 149
+    content: '-'
+  - delay: 117
+    content: '-'
+  - delay: 155
+    content: r
+  - delay: 88
+    content: u
+  - delay: 46
+    content: 'n'
+  - delay: 61
+    content: t
+  - delay: 110
+    content: i
+  - delay: 53
+    content: m
+  - delay: 60
+    content: e
+  - delay: 104
+    content: ' '
+  - delay: 354
+    content: P
+  - delay: 220
+    content: 'Y'
+  - delay: 126
+    content: T
+  - delay: 78
+    content: H
+  - delay: 79
+    content: O
+  - delay: 108
+    content: 'N'
+  - delay: 460
+    content: _
+  - delay: 320
+    content: '3'
+  - delay: 350
+    content: _
+  - delay: 243
+    content: '7'
+  - delay: 642
+    content: "\r\n"
+  - delay: 859
+    content: "[*] The following packages will be installed\r\n[*] @aws-cdk/aws-lambda@1.64.0\r\n"
+  - delay: 110755
+    content: "[*] Added Lambda Function Test\r\n[*] \r\nTo use it just paste the following lines to your CDK stack.\r\n\r\nimport TestFunction from './constructs/lambdas/test';\r\n...\r\nnew TestFunction(this, 'TESTFunction');\r\n"
+  - delay: 61
+    content: "\e]0;windsor@demo:/test\a\e[01;32mwindsor@demo\e[00m:\e[01;34m/test\e[00m$ "

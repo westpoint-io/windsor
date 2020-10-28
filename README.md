@@ -18,6 +18,8 @@ Install `windsor` using PyPI
 
 ## Getting started
 
+![](assets/getting-started.gif)
+
 ### Create a CDK application using windsor
 Each CDK app have its own dependencies and must be in its own folder. Start by creating an empty folder in your terminal.
 
@@ -59,6 +61,8 @@ The example above shows how to generate a lambda function. The only required par
 
 **Example**
 
+![](assets/generate-lambda.gif)
+
 
 ```typescript
 import * as cdk from '@aws-cdk/core';
@@ -83,6 +87,8 @@ A Pipeline that builds a React Application and sends to a S3 Bucket. The source 
  - pipeline-name
 
 **Example**:
+
+![](assets/generate-react-pipeline.gif)
 
 ```typescript
 import * as cdk from '@aws-cdk/core';

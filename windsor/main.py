@@ -1,4 +1,5 @@
 import os
+import logging
 import json
 
 from importlib import import_module
@@ -56,16 +57,19 @@ class Windsor:
             resources = json.load(resbuf)
 
         resourcecls_info = resources.get(resource)
+        resourcecls_params = resourcecls_info.get('parameter_requires', [])
 
         if not resourcecls_info:
-            print(f'Resource `{resource}` not found')
+            logging.info(f'Resource `{resource}` not found')
             return
+
+        for param in resourcecls_params:
+            if param not in kwargs:
+                logging.info(f'Missing parameter {param}')
+                return
 
         strmodule = resourcecls_info.get('module')
         strclass = resourcecls_info.get('class')
-
-        if not resourcecls_info:
-            raise AttributeError(f'Resource {resource} not found')
 
         module = import_module(strmodule)
 

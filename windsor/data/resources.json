@@ -1,10 +1,17 @@
 {
   "lambda-function": {
     "module": "windsor.services.lambda_.function",
-    "class": "Function"
+    "class": "Function",
+    "parameter_requires": ["function_name"]
   },
   "codepipeline-react": {
     "module": "windsor.services.codepipeline.react",
-    "class": "ReactPipeline"
+    "class": "ReactPipeline",
+    "parameter_requires": ["pipeline_name"]
+  },
+  "apigw-restapi": {
+    "module": "windsor.services.apigw.restapi",
+    "class": "RestApi",
+    "parameter_requires": ["restapi_name"]
   }
 }
